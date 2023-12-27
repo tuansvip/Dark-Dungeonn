@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
-    public enum InfoType {Kill, Time, Health, ArrowDamage, MeleeDamage, Room3Timer }
+    public enum InfoType {Kill, Time, Health, ArrowDamage, MeleeDamage, Room3Timer, BossHealth }
     public InfoType type;
 
     Text myText;
@@ -37,6 +37,11 @@ public class HUD : MonoBehaviour
                 int second = (int)GameManager.instance.room3.timer;
                 int milisecond = (int)((GameManager.instance.room3.timer - second) * 100);
                 myText.text = string.Format("{0}:{1}",second,milisecond );
+                break;
+            case InfoType.BossHealth:
+                float currBossHealth = GameManager.instance.boss.health;
+                float maxBossHealth = GameManager.instance.boss.maxHealth;
+                mySlider.value = currBossHealth / maxBossHealth;
                 break;
         }
     }

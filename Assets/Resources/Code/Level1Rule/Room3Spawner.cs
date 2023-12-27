@@ -26,7 +26,7 @@ public class Room3Spawner : MonoBehaviour
     private void FixedUpdate()
     {
         timer += Time.fixedDeltaTime;
-        if (timer > 1.5f * count ) 
+        if (timer > 1.2f * count ) 
         {
             count++;
             Spawn(Random.Range(0, pool.prefabs.Length)); 

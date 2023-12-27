@@ -9,6 +9,7 @@ using static UnityEngine.GridBrushBase;
 public class Level1Boss : MonoBehaviour
 {
     public float health;
+    public float maxHealth;
     public float damage;
     public float speed = 1.3f;
     public Transform target;
@@ -35,6 +36,7 @@ public class Level1Boss : MonoBehaviour
         bloodParticleSystem = GetComponent<ParticleSystem>();
         coll = GetComponent<Collider2D>();
         rigid = GetComponent<Rigidbody2D>();
+        health = maxHealth;
     }
 
     private void SetRanDir()
@@ -132,6 +134,7 @@ public class Level1Boss : MonoBehaviour
         {
             yield return null;
         }
+        SFXPlay.instance.PlayFireball();
         Vector3 dir = target.position - transform.position;
         dir.z = 0f;
         dir = dir.normalized;
@@ -158,6 +161,7 @@ public class Level1Boss : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
         }
+        SFXPlay.instance.PlayHit();
         bloodParticleSystem.Play();
         Invoke("StopBloodSplatter", 0.05f);
         if (collision.CompareTag("Arrow"))
@@ -180,6 +184,7 @@ public class Level1Boss : MonoBehaviour
     {
         if (attackCoundown <= 0 && collision.collider.CompareTag("Player"))
         {
+            SFXPlay.instance.PlayHurt();
             collision.collider.GetComponent<Player>().health -= damage;
             attackCoundown = 0.3f;
             playerPS = collision.collider.GetComponent<ParticleSystem>();

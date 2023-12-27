@@ -7,6 +7,7 @@ public class Room4 : MonoBehaviour
 {
     public bool isClear;
     public GameObject portal;
+    public GameObject bossHUD;
     private void Awake()
     {
         portal = transform.GetChild(3).gameObject;
@@ -18,6 +19,7 @@ public class Room4 : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(2).gameObject.SetActive(true);
+        bossHUD.SetActive(true);
     }
     private void FixedUpdate()
     {
@@ -31,6 +33,7 @@ public class Room4 : MonoBehaviour
 
         if (!transform.GetChild(1).GetComponent<Level1Boss>().isAlive)
         {
+            bossHUD.SetActive(false);
             isClear = true;
         }
     }

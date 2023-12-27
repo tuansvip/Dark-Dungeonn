@@ -86,6 +86,7 @@ public class Enemy : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
         }
+        SFXPlay.instance.PlayHit();
         bloodParticleSystem.Play();
         Invoke("StopBloodSplatter", 0.05f);
 
@@ -159,6 +160,7 @@ public class Enemy : MonoBehaviour
         if (!isAlive || !collision.CompareTag("Player")) return;
         if (attackCoundown <= 0)
         {
+            SFXPlay.instance.PlayHurt();
             collision.GetComponent<Player>().health -= damage;
             attackCoundown = 0.5f;
             anim.SetFloat("NormalState", 0f);

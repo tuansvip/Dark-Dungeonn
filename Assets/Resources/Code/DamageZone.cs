@@ -5,6 +5,10 @@ using UnityEngine;
 public class DamageZone : MonoBehaviour
 {
     float damageZoneCD;
+    private void Awake()
+    {
+        damageZoneCD = 0;
+    }
     private void FixedUpdate()
     {
         damageZoneCD -= Time.fixedDeltaTime;
@@ -18,6 +22,7 @@ public class DamageZone : MonoBehaviour
             Player player = collision.GetComponent<Player>();
             player.health -= 5f;
             damageZoneCD = 1;
+            SFXPlay.instance.PlayBurn();
         }
     }
 }

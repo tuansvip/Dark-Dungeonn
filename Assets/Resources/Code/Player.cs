@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
         {
             yield return null;
         }
-
+        SFXPlay.instance.PlayArrow();
         Vector3 dir;
 
         if (!scanner.nearestTarget)
@@ -122,7 +122,6 @@ public class Player : MonoBehaviour
         StartCoroutine(MeleeAfterAnimation());
 
     }
-
     private IEnumerator MeleeAfterAnimation()
     {
 
@@ -131,9 +130,8 @@ public class Player : MonoBehaviour
         {
             yield return null;
         }
+        SFXPlay.instance.PlaySword();
         Vector3 dir;
-
-
         dir = playerDir.normalized;
         Transform melee = pool.Get(1).transform;
         Vector3 tempPos = transform.position;
@@ -141,6 +139,17 @@ public class Player : MonoBehaviour
         melee.position = tempPos;
         melee.rotation = Quaternion.FromToRotation(Vector3.up, dir);
         melee.GetComponent<Melee>().Init(meleeDmg, dir);
+    }
+    private void OnEsc()
+    {
+        if (GameManager.instance.isPause)
+        {
+            GameManager.instance.Resume();
+        }
+        else
+        {
+            GameManager.instance.Pause();
+        }
     }
 
 
@@ -157,21 +166,22 @@ public class Player : MonoBehaviour
         {
             health = 0;
             anim.SetTrigger("Die");
-            isLive = false;
+            rigid.constraints = RigidbodyConstraints2D.FreezeAll;
+            rigid.simulated = false;
+            GetComponent<Collider2D>().enabled = false;
+            time = gameTime;
+            SFXPlay.instance.PlayLose();
             StartCoroutine(Die());
         }
     }
-
+    float time;
     IEnumerator Die()
     {
-        rigid.constraints = RigidbodyConstraints2D.FreezeAll;
-        float time = gameTime;
-        yield return null;
-        while (gameTime -  time < 2f) {
+        yield return null; 
+        while (gameTime -  time > 2f){
             yield return null;
         }
         isLive = false;
-        Time.timeScale = 0;
     }
 
     private void LateUpdate()
@@ -206,6 +216,15 @@ public class Player : MonoBehaviour
             health += 10;
             if (health > maxHealth) health = maxHealth;
             collision.gameObject.SetActive(false);
+        }
+        if(collision.CompareTag("Portal"))
+        {
+            SFXPlay.instance.PlayWin();
+            rigid.constraints = RigidbodyConstraints2D.FreezeAll;
+            rigid.simulated = false;
+            GetComponent<Collider2D>().enabled = false;
+            GameManager.instance.Win();
+
         }
         
     }
