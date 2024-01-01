@@ -33,7 +33,7 @@ public class Room3 : MonoBehaviour
     {
         if (!GameManager.instance.isPause)
         {
-            timer += Time.fixedDeltaTime;
+            timer -= Time.fixedDeltaTime;
         }
         if (infotimer >= 3f && isRunning)
         {

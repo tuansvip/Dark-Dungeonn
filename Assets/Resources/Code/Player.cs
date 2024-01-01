@@ -197,11 +197,11 @@ public class Player : MonoBehaviour
         {
             if (inputVec2.x < 0)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(1.3f, 1.3f, 1);
             }
             else
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-1.3f, 1.3f, 1);
             }
         }
     }
