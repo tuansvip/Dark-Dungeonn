@@ -36,10 +36,6 @@ public class Room3 : MonoBehaviour
         {
             info.SetActive(false);  
         }
-        if (!isRunning)
-        {
-            return;
-        }
         timer -= Time.fixedDeltaTime;
         if (timer <= 0 && player.isLive == true)
         {
