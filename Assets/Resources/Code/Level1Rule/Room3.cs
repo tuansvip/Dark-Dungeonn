@@ -31,7 +31,10 @@ public class Room3 : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        infotimer += Time.fixedDeltaTime;
+        if (!GameManager.instance.isPause)
+        {
+            timer += Time.fixedDeltaTime;
+        }
         if (infotimer >= 3f && isRunning)
         {
             info.SetActive(false);  
