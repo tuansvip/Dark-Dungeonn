@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     }
     public void BackToMenu()
     {
-        //navigate to the first scene
+
         SceneManager.LoadScene(0);
     }
     public void NextLevel()
@@ -56,4 +56,5 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         isPause = true;
     }
+
 }

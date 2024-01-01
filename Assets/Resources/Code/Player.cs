@@ -43,12 +43,16 @@ public class Player : MonoBehaviour
     Transform transform;
     Scanner scanner;
     PlayerInput playerInput;
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         transform = GetComponent<Transform>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         scanner = GetComponent<Scanner>();
         gameTime = 0;
         lastTimeArrow = -arrowSpd;
