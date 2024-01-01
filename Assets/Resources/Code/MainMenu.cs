@@ -9,7 +9,6 @@ public class MainMenu : MonoBehaviour
     public float timer = 0;
     public void QuitGame()
     {
-        SceneManager.LoadScene(1);
         Application.Quit();
     }
     public void StartGame()
