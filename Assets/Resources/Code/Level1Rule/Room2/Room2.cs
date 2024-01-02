@@ -26,6 +26,7 @@ public class Room2 : MonoBehaviour
         if (transform.GetChild(1).GetComponent<CheckClear>().isClear && transform.GetChild(2).GetComponent<CheckClear>().isClear)
         {
             isClear = true;
+            SFXPlay.instance.PlayWin();
         }
     }
 }

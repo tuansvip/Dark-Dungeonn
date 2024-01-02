@@ -8,11 +8,9 @@ public class Room3 : MonoBehaviour
     public bool isClear;
     public Player player;
     public float timer;
-    public float infotimer;
     public bool isRunning;
     public Room3Pool pool;
     public GameObject hud;
-    public GameObject info;
 
     private void Awake()
     {
@@ -21,13 +19,15 @@ public class Room3 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isClear || !collision.CompareTag("Player")) return;
-        infotimer = 0f;
+        if (!isClear &&collision.CompareTag("Player"))
+        {
+        timer = 100f;
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(2).gameObject.SetActive(true);
         hud.SetActive(true);
         isRunning = true;
+        }
     }
     private void FixedUpdate()
     {
@@ -35,11 +35,7 @@ public class Room3 : MonoBehaviour
         {
             timer -= Time.fixedDeltaTime;
         }
-        if (infotimer >= 3f && isRunning)
-        {
-            info.SetActive(false);  
-        }
-        if (timer <= 0 && player.isLive == true)
+        if (timer <= 0 && player.isLive && isRunning)
         {
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(false);
@@ -47,6 +43,7 @@ public class Room3 : MonoBehaviour
             isRunning = false;
             isClear = true;
             hud.SetActive(false);
+            SFXPlay.instance.PlayWin();
         }
     }
 }

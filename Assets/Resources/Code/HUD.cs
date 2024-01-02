@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -36,7 +36,7 @@ public class HUD : MonoBehaviour
             case InfoType.Room3Timer:
                 int second = (int)GameManager.instance.room3.timer;
                 int milisecond = (int)((GameManager.instance.room3.timer - second) * 100);
-                myText.text = string.Format("{0}:{1}",second,milisecond );
+                myText.text = string.Format("Sống sót trong {0}:{1}\ts!",second,milisecond );
                 break;
             case InfoType.BossHealth:
                 float currBossHealth = GameManager.instance.boss.health;
